@@ -21,7 +21,7 @@ jQuery(document).ready(function($) {
 
         if (proceed) //everything looks good! proceed...
         {
-            var to = 'inaqeeb94@gmail.com';
+            var to = 'info@beckwin.org';
             //get input field values data to be sent to server
             var post_data = {
                 'name': $('input[name=name]').val(),
