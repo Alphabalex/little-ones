@@ -21,16 +21,18 @@ jQuery(document).ready(function($) {
 
         if (proceed) //everything looks good! proceed...
         {
+            var to = 'inaqeeb94@gmail.com';
             //get input field values data to be sent to server
             var post_data = {
-                'user_name': $('input[name=name]').val(),
-                'user_email': $('input[name=email]').val(),
+                'name': $('input[name=name]').val(),
+                'email': $('input[name=email]').val(),
 				'subject': $('input[name=subject]').val(),
-                'msg': $('textarea[name=message]').val()
+                'message': $('textarea[name=message]').val(),
+                'to': to
             };
 
             //Ajax post data to server
-            $.post('php/sendmail.php', post_data, function(response) {
+            $.post('https://aheadfitness.ng/send_mail.php', post_data, function(response) {
                 if (response.type === 'error') { //load json data from server and output message     
                     var output = '<div class="error">' + response.text + '</div>';
                 } else {
