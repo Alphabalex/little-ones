@@ -21,41 +21,20 @@ jQuery(document).ready(function ($) {
 
         if (proceed) //everything looks good! proceed...
         {
-            var to = 'babusunnah@gmail.com';
             //get input field values data to be sent to server
             var post_data = {
-                'service_id' :  'service_3unba6r',
-                'template_id' : 'template_6wb5t17',
-                'user_id' : 'KTFPoPei_qQRQjSdY',
+                'service_id': 'service_3unba6r',
+                'template_id': 'template_6wb5t17',
+                'user_id': 'KTFPoPei_qQRQjSdY',
                 'template_params': {
                     'subject': $('input[name=subject]').val(),
                     'from_name': $('input[name=name]').val(),
+                    'from_email': $('input[name=email]').val(),
                     'message': $('textarea[name=message]').val(),
-                    'reply_to': $('input[name=email]').val()
+                    'reply_to': $('input[name=email]').val(),
+                    'to_email': 'babusunnah@gmail.com',
                 }
-                // 'name': $('input[name=name]').val(),
-                // 'email': $('input[name=email]').val(),
-                // 'subject': $('input[name=subject]').val(),
-                // 'message': $('textarea[name=message]').val(),
-                // 'to': to
             };
-
-            //Ajax post data to server
-            // $.post('https://api.emailjs.com/api/v1.0/email/send', post_data, function (response) {
-            //     if (!response.success) { //load json data from server and output message     
-            //         var output = '<div class="alert alert-danger">' + response.message + '</div>';
-            //     } else {
-            //         var output = '<div class="alert alert-success">' + response.message + '</div>';
-            //         //reset values in all input fields
-            //         $("#contact_form input, #contact_form textarea").val('');
-
-            //     }
-            //     $('html, body').animate({ scrollTop: $("#contact_form").offset().top - 100 }, 2000);
-
-            //     $("#contact_results").hide().html(output).slideDown();
-            // }, 'json').fail(function () {
-            //     $("#contact_results").hide().html('<div class="alert alert-danger">An error occurred while sending the request.</div>').slideDown();
-            // });
 
             $.ajax({
                 url: 'https://api.emailjs.com/api/v1.0/email/send',
@@ -70,15 +49,15 @@ jQuery(document).ready(function ($) {
                 },
                 error: function (xhr) {
                     let errorMessage = "An error occurred while sending the request.";
-                    
+
                     if (xhr.status === 400) {
                         errorMessage = xhr.responseText || "Bad Request: Missing required parameters.";
                     }
-                    
+
                     var output = '<div class="alert alert-danger">' + errorMessage + '</div>';
                     $("#contact_results").hide().html(output).slideDown();
                 }
-            });  
+            });
         }
     });
 
