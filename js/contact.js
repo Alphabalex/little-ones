@@ -1,11 +1,11 @@
 "use strict";
-jQuery(document).ready(function($) {
-    $("#submit_btn").on("click", function() {
+jQuery(document).ready(function ($) {
+    $("#submit_btn").on("click", function () {
 
         var proceed = true;
         //simple validation at client's end
         //loop through each field and we simply change border color to red for invalid fields		
-        $("#contact_form input[required], #contact_form textarea[required]").each(function() {
+        $("#contact_form input[required], #contact_form textarea[required]").each(function () {
             $(this).css('background-color', '');
             if (!$.trim($(this).val())) { //if this field is empty 
                 $(this).css('background-color', '#ffbbbb'); //change border color to   
@@ -26,30 +26,32 @@ jQuery(document).ready(function($) {
             var post_data = {
                 'name': $('input[name=name]').val(),
                 'email': $('input[name=email]').val(),
-				'subject': $('input[name=subject]').val(),
+                'subject': $('input[name=subject]').val(),
                 'message': $('textarea[name=message]').val(),
                 'to': to
             };
 
             //Ajax post data to server
-            $.post('https://aheadfitness.ng/send_mail.php', post_data, function(response) {
+            $.post('https://aheadfitness.ng/send_mail.php', post_data, function (response) {
                 if (!response.success) { //load json data from server and output message     
-                    var output = '<div class="error">' + response.message + '</div>';
+                    var output = '<div class="alert alert-danger">' + response.message + '</div>';
                 } else {
-                    var output = '<div class="success">' + response.message + '</div>';
+                    var output = '<div class="alert alert-success">' + response.message + '</div>';
                     //reset values in all input fields
                     $("#contact_form input, #contact_form textarea").val('');
 
                 }
-				$('html, body').animate({scrollTop: $("#contact_form").offset().top-100}, 2000);
-			
+                $('html, body').animate({ scrollTop: $("#contact_form").offset().top - 100 }, 2000);
+
                 $("#contact_results").hide().html(output).slideDown();
-            }, 'json');
+            }, 'json').fail(function () {
+                $("#contact_results").hide().html('<div class="alert alert-danger">An error occurred while sending the request.</div>').slideDown();
+            });
         }
     });
 
     //reset previously set border colors and hide all message on .keyup()
-    $("#contact_form  input[required=true], #contact_form textarea[required=true]").keyup(function() {
+    $("#contact_form  input[required=true], #contact_form textarea[required=true]").keyup(function () {
         $(this).css('background-color', '');
         $("#result").slideUp();
     });
