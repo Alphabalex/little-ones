@@ -26,7 +26,7 @@ jQuery(document).ready(function ($) {
             var post_data = {
                 'service_id' :  'service_3unba6r',
                 'template_id' : 'template_6wb5t17',
-                'user_id' : 'KTFPoPei_qQRQjSdY',
+                'publicKey' : 'KTFPoPei_qQRQjSdY',
                 'template_params': {
                     'subject': $('input[name=subject]').val(),
                     'from_name': $('input[name=name]').val(),
