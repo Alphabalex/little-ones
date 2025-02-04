@@ -24,15 +24,24 @@ jQuery(document).ready(function ($) {
             var to = 'babusunnah@gmail.com';
             //get input field values data to be sent to server
             var post_data = {
-                'name': $('input[name=name]').val(),
-                'email': $('input[name=email]').val(),
-                'subject': $('input[name=subject]').val(),
-                'message': $('textarea[name=message]').val(),
-                'to': to
+                'service_id' :  'service_3unba6r',
+                'template_id' : 'template_6wb5t17',
+                'user_id' : 'KTFPoPei_qQRQjSdY',
+                'template_params': {
+                    'subject': $('input[name=subject]').val(),
+                    'from_name': $('input[name=name]').val(),
+                    'message': $('textarea[name=message]').val(),
+                    'reply_to': $('input[name=email]').val()
+                },
+                // 'name': $('input[name=name]').val(),
+                // 'email': $('input[name=email]').val(),
+                // 'subject': $('input[name=subject]').val(),
+                // 'message': $('textarea[name=message]').val(),
+                // 'to': to
             };
 
             //Ajax post data to server
-            $.post('https://aheadfitness.ng/send_mail.php', post_data, function (response) {
+            $.post('https://api.emailjs.com/api/v1.0/email/send', post_data, function (response) {
                 if (!response.success) { //load json data from server and output message     
                     var output = '<div class="alert alert-danger">' + response.message + '</div>';
                 } else {
