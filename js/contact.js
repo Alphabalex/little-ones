@@ -32,7 +32,7 @@ jQuery(document).ready(function ($) {
                     'from_email': $('input[name=email]').val(),
                     'message': $('textarea[name=message]').val(),
                     'reply_to': $('input[name=email]').val(),
-                    'to_email': 'babusunnah@gmail.com',
+                    'to_email': 'info@beckwin.org',
                 }
             };
 
