@@ -32,7 +32,7 @@ jQuery(document).ready(function ($) {
                     'from_name': $('input[name=name]').val(),
                     'message': $('textarea[name=message]').val(),
                     'reply_to': $('input[name=email]').val()
-                },
+                }
                 // 'name': $('input[name=name]').val(),
                 // 'email': $('input[name=email]').val(),
                 // 'subject': $('input[name=subject]').val(),
