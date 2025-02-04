@@ -33,10 +33,10 @@ jQuery(document).ready(function($) {
 
             //Ajax post data to server
             $.post('https://aheadfitness.ng/send_mail.php', post_data, function(response) {
-                if (response.type === 'error') { //load json data from server and output message     
-                    var output = '<div class="error">' + response.text + '</div>';
+                if (!response.success) { //load json data from server and output message     
+                    var output = '<div class="error">' + response.message + '</div>';
                 } else {
-                    var output = '<div class="success">' + response.text + '</div>';
+                    var output = '<div class="success">' + response.message + '</div>';
                     //reset values in all input fields
                     $("#contact_form input, #contact_form textarea").val('');
 
