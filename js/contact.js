@@ -62,22 +62,23 @@ jQuery(document).ready(function ($) {
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(post_data), // Convert object to JSON string
-                success: function (response) {
-                    var output;
-                    if (!response.success) {
-                        output = '<div class="alert alert-danger">' + response.message + '</div>';
-                    } else {
-                        output = '<div class="alert alert-success">Email sent successfully!</div>';
-                        $("#contact_form input, #contact_form textarea").val('');
-                    }
+                success: function () {
+                    var output = '<div class="alert alert-success">Email sent successfully!</div>';
+                    $("#contact_form input, #contact_form textarea").val('');
                     $('html, body').animate({ scrollTop: $("#contact_form").offset().top - 100 }, 2000);
                     $("#contact_results").hide().html(output).slideDown();
                 },
-                error: function () {
-                    $("#contact_results").hide().html('<div class="alert alert-danger">An error occurred while sending the request.</div>').slideDown();
+                error: function (xhr) {
+                    let errorMessage = "An error occurred while sending the request.";
+                    
+                    if (xhr.status === 400) {
+                        errorMessage = xhr.responseText || "Bad Request: Missing required parameters.";
+                    }
+                    
+                    var output = '<div class="alert alert-danger">' + errorMessage + '</div>';
+                    $("#contact_results").hide().html(output).slideDown();
                 }
-            });
-            
+            });  
         }
     });
 
