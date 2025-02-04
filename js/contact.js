@@ -26,7 +26,7 @@ jQuery(document).ready(function ($) {
             var post_data = {
                 'service_id' :  'service_3unba6r',
                 'template_id' : 'template_6wb5t17',
-                'publicKey' : 'KTFPoPei_qQRQjSdY',
+                'user_id' : 'KTFPoPei_qQRQjSdY',
                 'template_params': {
                     'subject': $('input[name=subject]').val(),
                     'from_name': $('input[name=name]').val(),
@@ -41,21 +41,43 @@ jQuery(document).ready(function ($) {
             };
 
             //Ajax post data to server
-            $.post('https://api.emailjs.com/api/v1.0/email/send', post_data, function (response) {
-                if (!response.success) { //load json data from server and output message     
-                    var output = '<div class="alert alert-danger">' + response.message + '</div>';
-                } else {
-                    var output = '<div class="alert alert-success">' + response.message + '</div>';
-                    //reset values in all input fields
-                    $("#contact_form input, #contact_form textarea").val('');
+            // $.post('https://api.emailjs.com/api/v1.0/email/send', post_data, function (response) {
+            //     if (!response.success) { //load json data from server and output message     
+            //         var output = '<div class="alert alert-danger">' + response.message + '</div>';
+            //     } else {
+            //         var output = '<div class="alert alert-success">' + response.message + '</div>';
+            //         //reset values in all input fields
+            //         $("#contact_form input, #contact_form textarea").val('');
 
+            //     }
+            //     $('html, body').animate({ scrollTop: $("#contact_form").offset().top - 100 }, 2000);
+
+            //     $("#contact_results").hide().html(output).slideDown();
+            // }, 'json').fail(function () {
+            //     $("#contact_results").hide().html('<div class="alert alert-danger">An error occurred while sending the request.</div>').slideDown();
+            // });
+
+            $.ajax({
+                url: 'https://api.emailjs.com/api/v1.0/email/send',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(post_data), // Convert object to JSON string
+                success: function (response) {
+                    var output;
+                    if (!response.success) {
+                        output = '<div class="alert alert-danger">' + response.message + '</div>';
+                    } else {
+                        output = '<div class="alert alert-success">Email sent successfully!</div>';
+                        $("#contact_form input, #contact_form textarea").val('');
+                    }
+                    $('html, body').animate({ scrollTop: $("#contact_form").offset().top - 100 }, 2000);
+                    $("#contact_results").hide().html(output).slideDown();
+                },
+                error: function () {
+                    $("#contact_results").hide().html('<div class="alert alert-danger">An error occurred while sending the request.</div>').slideDown();
                 }
-                $('html, body').animate({ scrollTop: $("#contact_form").offset().top - 100 }, 2000);
-
-                $("#contact_results").hide().html(output).slideDown();
-            }, 'json').fail(function () {
-                $("#contact_results").hide().html('<div class="alert alert-danger">An error occurred while sending the request.</div>').slideDown();
             });
+            
         }
     });
 
